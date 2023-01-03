@@ -20,6 +20,9 @@ body {
 
 .display {
   flex: 1;
+  background-color: aliceblue;
+  width: 280px;
+  margin: 8px;
 }
 
 .buttons {
@@ -38,4 +41,8 @@ body {
 
 #zero {
   width: 143px;
+}
+
+.item.sings {
+  background-color: lightgoldenrodyellow;
 }
