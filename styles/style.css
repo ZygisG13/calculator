@@ -21,6 +21,7 @@ body {
 .display {
   flex: 1;
   background-color: aliceblue;
+  text-align: right;
   width: 280px;
   margin: 8px;
 }
@@ -31,7 +32,6 @@ body {
   flex-wrap: wrap-reverse;
   align-items: center;
   justify-content: space-evenly;
-  border: 1px solid greenyellow;
   }
 
 .item {
@@ -43,6 +43,6 @@ body {
   width: 143px;
 }
 
-.item.sings {
+.item.signs {
   background-color: lightgoldenrodyellow;
 }
