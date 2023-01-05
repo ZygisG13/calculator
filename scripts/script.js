@@ -12,12 +12,12 @@ function operate(firstNum, operator, secondNum) {
   //Decides which math action should be taken and return result
   if (operator === "+") {
     number1 = Array.from(String(add(firstNum, secondNum)));
-    display(number1);
+    //display(number1);
     return number1, (number2 = []);
   }
   if (operator === "-") {
     number1 = Array.from(String(subtract(firstNum, secondNum)));
-    display(number1);
+    //display(number1);
     return number1, (number2 = []);
   }
   if (operator === "x") {
@@ -59,11 +59,7 @@ symbols.forEach((symbol) => {
       index1++;
     }
     //checking if pushed symbol is not number and number1 array is full. We expecting sign
-    if (
-      symbol.className !== "item numbers" &&
-      symbol.id !== "equal" &&
-      number1.length !== 0
-    ) {
+    if (symbol.className !== "item numbers" && symbol.id !== "equal" && number1.length !== 0 && number2.length === 0) {
       sign = symbol.textContent;
     }
     //checking if pushed is number, and sign should be not empty, number1 should have entries. Fill number2 array
@@ -74,10 +70,11 @@ symbols.forEach((symbol) => {
       number1.length !== 0
     ) {
       number2[index2] = symbol.textContent;
+      console.log(number2)
       display(number2);
       index2++;
     }
-    //checking if pushed is not number, not '=', number1 should have entries, number2 should have entries
+    //checking if pushed is not number and not '=', number1 should have entries, number2 should have entries
     if (
       symbol.className !== "item numbers" &&
       symbol.id !== "equal" &&
@@ -87,12 +84,16 @@ symbols.forEach((symbol) => {
       let int1 = parseFloat(number1.join(""));
       let int2 = parseFloat(number2.join(""));
       operate(int1, sign, int2);
+      display(number1);
+      console.log(number1);
     }
     //checking if pushed is '=', number1 should have entries, number2 should have entries
     if (symbol.id === "equal" && number1.length !== 0 && number2.length !== 0) {
       let int1 = parseFloat(number1.join(""));
       let int2 = parseFloat(number2.join(""));
       operate(int1, sign, int2);
+      display(number1);
+      console.log(number1);
     }
     //checking if 'AC' is pushed, clear all values
     if (symbol.id === "AC") {
