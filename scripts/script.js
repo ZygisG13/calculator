@@ -13,22 +13,22 @@ function operate(firstNum, operator, secondNum) {
   if (operator === "+") {
     number1 = Array.from(String(add(firstNum, secondNum)));
     //display(number1);
-    return number1, (number2 = []);
+    return number1, (number2.length = 0);
   }
   if (operator === "-") {
     number1 = Array.from(String(subtract(firstNum, secondNum)));
     //display(number1);
-    return number1, (number2 = []);
+    return number1, (number2.length = 0);
   }
   if (operator === "x") {
     number1 = Array.from(String(multiple(firstNum, secondNum)));
     display(number1);
-    return number1, (number2 = []);
+    return number1, (number2.length = 0);
   }
   if (operator === "/") {
     number1 = Array.from(String(divide(firstNum, secondNum)));
     display(number1);
-    return number1, (number2 = []);
+    return number1, (number2.length = 0);
   }
 }
 
@@ -59,7 +59,12 @@ symbols.forEach((symbol) => {
       index1++;
     }
     //checking if pushed symbol is not number and number1 array is full. We expecting sign
-    if (symbol.className !== "item numbers" && symbol.id !== "equal" && number1.length !== 0 && number2.length === 0) {
+    if (
+      symbol.className !== "item numbers" &&
+      symbol.id !== "equal" &&
+      number1.length !== 0 &&
+      number2.length === 0
+    ) {
       sign = symbol.textContent;
     }
     //checking if pushed is number, and sign should be not empty, number1 should have entries. Fill number2 array
@@ -70,7 +75,7 @@ symbols.forEach((symbol) => {
       number1.length !== 0
     ) {
       number2[index2] = symbol.textContent;
-      console.log(number2)
+      console.log(number2);
       display(number2);
       index2++;
     }
@@ -95,10 +100,14 @@ symbols.forEach((symbol) => {
       display(number1);
       console.log(number1);
     }
+    //checking if sing button is pushed and if sign has value. Sign gets newly pushed value
+    if (symbol.className === "item signs" && sign !== "") {
+      sign = symbol.textContent;
+    }
     //checking if 'AC' is pushed, clear all values
     if (symbol.id === "AC") {
-      number1 = [];
-      number2 = [];
+      number1.length = 0;
+      number2.length = 0;
       sign = "";
       document.querySelector(".display").textContent = "0";
     }
