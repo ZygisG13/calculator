@@ -1,8 +1,7 @@
 function display(number) {
   //This function shows entries in web page display "<div>"
-  if (number[12] !== undefined) {
+  if (number[11] !== undefined) {
     document.querySelector(".display").textContent = "NaN";
-    //number.length = 0;
   } else {
     document.querySelector(".display").textContent = number.join("");
   }
@@ -38,27 +37,27 @@ function operate(firstNum, operator, secondNum) {
 
 function add(firstNum, secondNum) {
   //add two numbers
-  return Math.round(((firstNum + secondNum) + Number.EPSILON) * 10000000000) / 10000000000;
+  return Math.round((firstNum + secondNum + Number.EPSILON) * 10000000000) / 10000000000;
 }
 
 function subtract(firstNum, secondNum) {
   //subtract two numbers
-  return Math.round(((firstNum - secondNum) + Number.EPSILON) * 10000000000) / 10000000000;
+  return Math.round((firstNum - secondNum + Number.EPSILON) * 10000000000) / 10000000000;
 }
 
 function multiple(firstNum, secondNum) {
   //subtract two numbers
-  return Math.round(((firstNum * secondNum) + Number.EPSILON) * 10000000000) / 10000000000;
+  return Math.round((firstNum * secondNum + Number.EPSILON) * 10000000000) / 10000000000;
 }
 
 function divide(firstNum, secondNum) {
   //subtract two numbers
-  return Math.round(((firstNum / secondNum) + Number.EPSILON) * 10000000000) / 10000000000;
+  return Math.round((firstNum / secondNum + Number.EPSILON) * 10000000000) / 10000000000;
 }
 
 function percent(firstNum) {
   //add two numbers
-  return Math.round(((firstNum / 100) + Number.EPSILON) * 10000000000) / 10000000000;
+  return Math.round((firstNum / 100 + Number.EPSILON) * 10000000000) / 10000000000;
 }
 
 let number1 = [];
@@ -133,11 +132,10 @@ symbols.forEach((symbol) => {
       console.log(number2);
       document.querySelector(".display").textContent = "0";
     }
-    //
-    if (symbol.id === "percent" && number1.length !== 0 ) {
+    //checks if percent button pushed if it's take number1 to proceed
+    if (symbol.id === "percent" && number1.length !== 0) {
       let int1 = parseFloat(number1.join(""));
       operate(int1, sign, 0);
-      console.log(number1);
       display(number1);
     }
   });
