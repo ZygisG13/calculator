@@ -1,8 +1,8 @@
 function display(number) {
   //This function shows entries in web page display "<div>"
-  if (number[11] !== undefined) {
+  if (number[12] !== undefined) {
     document.querySelector(".display").textContent = "NaN";
-    number = [];
+    //number.length = 0;
   } else {
     document.querySelector(".display").textContent = number.join("");
   }
@@ -23,31 +23,35 @@ function operate(firstNum, operator, secondNum) {
     display(number1);
     return number1, (number2.length = 0), (index2 = 0);
   }
-  if (operator === "/") {
+  if (operator === "/" && secondNum !== 0) {
     number1 = Array.from(String(divide(firstNum, secondNum)));
     display(number1);
     return number1, (number2.length = 0), (index2 = 0);
+  } else {
+    console.log(`${secondNum} "ds"`);
+    //document.querySelector(".display").textContent = "Error";
+    return (number1 = ["E", "r", "r", "o", "r"]), (number2.length = 0), (index2 = 0);
   }
 }
 
 function add(firstNum, secondNum) {
   //add two numbers
-  return firstNum + secondNum;
+  return Math.round(((firstNum + secondNum) + Number.EPSILON) * 10000000000) / 10000000000;
 }
 
 function subtract(firstNum, secondNum) {
   //subtract two numbers
-  return firstNum - secondNum;
+  return Math.round(((firstNum - secondNum) + Number.EPSILON) * 10000000000) / 10000000000;
 }
 
 function multiple(firstNum, secondNum) {
   //subtract two numbers
-  return firstNum * secondNum;
+  return Math.round(((firstNum * secondNum) + Number.EPSILON) * 10000000000) / 10000000000;
 }
 
 function divide(firstNum, secondNum) {
   //subtract two numbers
-  return firstNum / secondNum;
+  return Math.round(((firstNum / secondNum) + Number.EPSILON) * 10000000000) / 10000000000;
 }
 
 let number1 = [];
@@ -83,7 +87,6 @@ symbols.forEach((symbol) => {
       number1.length !== 0
     ) {
       number2[index2] = symbol.textContent;
-      console.log(number2);
       display(number2);
       index2++;
     }
@@ -97,6 +100,7 @@ symbols.forEach((symbol) => {
       let int1 = parseFloat(number1.join(""));
       let int2 = parseFloat(number2.join(""));
       operate(int1, sign, int2);
+      console.log(number1);
       display(number1);
     }
     //checking if pushed is '=', number1 should have entries, number2 should have entries
@@ -104,6 +108,7 @@ symbols.forEach((symbol) => {
       let int1 = parseFloat(number1.join(""));
       let int2 = parseFloat(number2.join(""));
       operate(int1, sign, int2);
+      console.log(number1);
       display(number1);
     }
     //checking if sing button is pushed and if sign has value. Sign gets newly pushed value
