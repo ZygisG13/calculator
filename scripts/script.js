@@ -23,14 +23,16 @@ function operate(firstNum, operator, secondNum) {
     display(number1);
     return number1, (number2.length = 0), (index2 = 0);
   }
+  if (operator === "%") {
+    number1 = Array.from(String(percent(firstNum, secondNum)));
+    return number1, (number2.length = 0), (index2 = 0);
+  }
   if (operator === "/" && secondNum !== 0) {
     number1 = Array.from(String(divide(firstNum, secondNum)));
     display(number1);
     return number1, (number2.length = 0), (index2 = 0);
   } else {
-    console.log(`${secondNum} "ds"`);
-    //document.querySelector(".display").textContent = "Error";
-    return (number1 = ["E", "r", "r", "o", "r"]), (number2.length = 0), (index2 = 0);
+    return (number1 = ["E", "r", "r", "o", "r"]), (number2.length = 0), (index2 = 0), (index1 = 0);
   }
 }
 
@@ -52,6 +54,11 @@ function multiple(firstNum, secondNum) {
 function divide(firstNum, secondNum) {
   //subtract two numbers
   return Math.round(((firstNum / secondNum) + Number.EPSILON) * 10000000000) / 10000000000;
+}
+
+function percent(firstNum) {
+  //add two numbers
+  return Math.round(((firstNum / 100) + Number.EPSILON) * 10000000000) / 10000000000;
 }
 
 let number1 = [];
@@ -125,6 +132,13 @@ symbols.forEach((symbol) => {
       console.log(number1);
       console.log(number2);
       document.querySelector(".display").textContent = "0";
+    }
+    //
+    if (symbol.id === "percent" && number1.length !== 0 ) {
+      let int1 = parseFloat(number1.join(""));
+      operate(int1, sign, 0);
+      console.log(number1);
+      display(number1);
     }
   });
 });
