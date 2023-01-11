@@ -101,6 +101,7 @@ symbols.forEach((symbol) => {
     ) {
       number2[index2] = symbol.textContent;
       display(number2);
+
       displayAll(symbol.textContent);
       index2++;
     }
@@ -155,7 +156,7 @@ symbols.forEach((symbol) => {
       let result = Math.round((int1 / 100 + Number.EPSILON) * 10000000000) / 10000000000;
       number2 = Array.from(String(result));
       display(number2);
-      displayAll(symbol.textContent+ "=" + number2.join(""));
+      displayAll(symbol.textContent + "=" + number2.join(""));
     }
     //checks if +/- button pushed, proceed with number1
     if (
@@ -186,14 +187,20 @@ symbols.forEach((symbol) => {
     if (symbol.id === "plus-minus" && number2.length !== 0 && number2[0] !== "-") {
       number2.unshift("-");
       display(number2);
-      displayAll(number2.join(""));
+      let tempRow = document.querySelector(".displayAll").textContent.substring(0, number2.length);
+      console.log(tempRow);
+      document.querySelector(".displayAll").textContent = "";
+      displayAll(tempRow + "(" + number2.join("") + ")");
       return;
     }
     //checks if +/- button pushed, and number2 is negative
     if (symbol.id === "plus-minus" && number2.length !== 0 && number2[0] === "-") {
       number2.shift();
       display(number2);
-      displayAll(number1.join(""));
+      let tempRow = document.querySelector(".displayAll").textContent.substring(0, number2.length+1);
+      console.log(tempRow);
+      document.querySelector(".displayAll").textContent = "";
+      displayAll(tempRow + number2.join(""));
     }
   });
 });
