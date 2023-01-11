@@ -23,14 +23,15 @@ function operate(firstNum, operator, secondNum) {
     return number1, (number2.length = 0), (index2 = 0);
   }
   if (operator === "%") {
-    number1 = Array.from(String(percent(firstNum, secondNum)));
+    number1 = Array.from(String(percent(firstNum)));
     return number1, (number2.length = 0), (index2 = 0);
   }
   if (operator === "/" && secondNum !== 0) {
     number1 = Array.from(String(divide(firstNum, secondNum)));
     display(number1);
     return number1, (number2.length = 0), (index2 = 0);
-  } else {
+  }
+  if (operator === "/" && secondNum === 0) {
     return (number1 = ["E", "r", "r", "o", "r"]), (number2.length = 0), (index2 = 0), (index1 = 0);
   }
 }
@@ -51,12 +52,12 @@ function multiple(firstNum, secondNum) {
 }
 
 function divide(firstNum, secondNum) {
-  //subtract two numbers
+  //divide two numbers
   return Math.round((firstNum / secondNum + Number.EPSILON) * 10000000000) / 10000000000;
 }
 
 function percent(firstNum) {
-  //add two numbers
+  //number1 divide by 100
   return Math.round((firstNum / 100 + Number.EPSILON) * 10000000000) / 10000000000;
 }
 
@@ -71,7 +72,12 @@ symbols.forEach((symbol) => {
   // and for each one we add a 'click' listener
   symbol.addEventListener("click", () => {
     //checking if pushed is number, and sign should be empty. Fill number1 array
-    if (symbol.className !== "item signs" && symbol.id !== "equal" && sign === "") {
+    if (
+      symbol.className !== "item signs" &&
+      symbol.className !== "item special" &&
+      symbol.id !== "equal" &&
+      sign === ""
+    ) {
       number1[index1] = symbol.textContent;
       display(number1);
       index1++;
@@ -79,6 +85,7 @@ symbols.forEach((symbol) => {
     //checking if pushed symbol is not number and number1 array is full. We expecting sign
     if (
       symbol.className !== "item numbers" &&
+      symbol.className !== "item special" &&
       symbol.id !== "equal" &&
       number1.length !== 0 &&
       number2.length === 0
@@ -88,6 +95,7 @@ symbols.forEach((symbol) => {
     //checking if pushed is number, and sign should be not empty, number1 should have entries. Fill number2 array
     if (
       symbol.className !== "item signs" &&
+      symbol.className !== "item special" &&
       symbol.id !== "equal" &&
       sign !== "" &&
       number1.length !== 0
@@ -99,6 +107,7 @@ symbols.forEach((symbol) => {
     //checking if pushed is not number and not '=', number1 should have entries, number2 should have entries
     if (
       symbol.className !== "item numbers" &&
+      symbol.className !== "item special" &&
       symbol.id !== "equal" &&
       number1.length !== 0 &&
       number2.length !== 0
@@ -132,11 +141,34 @@ symbols.forEach((symbol) => {
       console.log(number2);
       document.querySelector(".display").textContent = "0";
     }
-    //checks if percent button pushed if it's take number1 to proceed
+    //checks if percent button pushed, it's take number1 to proceed
     if (symbol.id === "percent" && number1.length !== 0) {
       let int1 = parseFloat(number1.join(""));
-      operate(int1, sign, 0);
+      let special = symbol.id;
+      operate(int1, special);
       display(number1);
+    }
+    //checks if +/- button pushed, proceed with number1
+    if (symbol.id === "plus-minus" && number1.length !== 0 && number1[0] !== "-" && number2.length === 0) {
+      number1.unshift("-");
+      display(number1);
+      return;
+    }
+    //checks if +/- button pushed, and number1 is negative
+    if (symbol.id === "plus-minus" && number1.length !== 0 && number1[0] === "-" && number2.length === 0) {
+      number1.shift();
+      display(number1);
+    }
+    //checks if +/- button pushed, proceed with number2
+    if (symbol.id === "plus-minus" && number2.length !== 0 && number2[0] !== "-") {
+      number2.unshift("-");
+      display(number2);
+      return;
+    }
+    //checks if +/- button pushed, and number2 is negative
+    if (symbol.id === "plus-minus" && number2.length !== 0 && number2[0] === "-") {
+      number2.shift();
+      display(number2);
     }
   });
 });
