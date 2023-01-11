@@ -19,16 +19,10 @@ function operate(firstNum, operator, secondNum) {
   }
   if (operator === "x") {
     number1 = Array.from(String(multiple(firstNum, secondNum)));
-    display(number1);
-    return number1, (number2.length = 0), (index2 = 0);
-  }
-  if (operator === "%") {
-    number1 = Array.from(String(percent(firstNum)));
     return number1, (number2.length = 0), (index2 = 0);
   }
   if (operator === "/" && secondNum !== 0) {
     number1 = Array.from(String(divide(firstNum, secondNum)));
-    display(number1);
     return number1, (number2.length = 0), (index2 = 0);
   }
   if (operator === "/" && secondNum === 0) {
@@ -54,11 +48,6 @@ function multiple(firstNum, secondNum) {
 function divide(firstNum, secondNum) {
   //divide two numbers
   return Math.round((firstNum / secondNum + Number.EPSILON) * 10000000000) / 10000000000;
-}
-
-function percent(firstNum) {
-  //number1 divide by 100
-  return Math.round((firstNum / 100 + Number.EPSILON) * 10000000000) / 10000000000;
 }
 
 let number1 = [];
@@ -137,25 +126,42 @@ symbols.forEach((symbol) => {
       index1 = 0;
       index2 = 0;
       sign = "";
-      console.log(number1);
-      console.log(number2);
       document.querySelector(".display").textContent = "0";
     }
     //checks if percent button pushed, it's take number1 to proceed
     if (symbol.id === "percent" && number1.length !== 0) {
       let int1 = parseFloat(number1.join(""));
-      let special = symbol.id;
-      operate(int1, special);
+      let result = Math.round((int1 / 100 + Number.EPSILON) * 10000000000) / 10000000000;
+      number1 = Array.from(String(result));
       display(number1);
     }
+   //checks if percent button pushed, it's take number2 to proceed
+   if (symbol.id === "percent" && number2.length !== 0) {
+    number1.length = 0;
+    number2.length = 0;
+    index1 = 0;
+    index2 = 0;
+    sign = "";
+    document.querySelector(".display").textContent = "NotAllowed";
+  }
     //checks if +/- button pushed, proceed with number1
-    if (symbol.id === "plus-minus" && number1.length !== 0 && number1[0] !== "-" && number2.length === 0) {
+    if (
+      symbol.id === "plus-minus" &&
+      number1.length !== 0 &&
+      number1[0] !== "-" &&
+      number2.length === 0
+    ) {
       number1.unshift("-");
       display(number1);
       return;
     }
     //checks if +/- button pushed, and number1 is negative
-    if (symbol.id === "plus-minus" && number1.length !== 0 && number1[0] === "-" && number2.length === 0) {
+    if (
+      symbol.id === "plus-minus" &&
+      number1.length !== 0 &&
+      number1[0] === "-" &&
+      number2.length === 0
+    ) {
       number1.shift();
       display(number1);
     }
