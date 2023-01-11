@@ -33,6 +33,7 @@ body {
 .displayAll {
   flex: 0.5;
   display: flex;
+  color: darkgrey;
   justify-content: flex-end;
   align-items: center;
   background-color: aliceblue;
