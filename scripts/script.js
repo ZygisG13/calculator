@@ -126,24 +126,24 @@ symbols.forEach((symbol) => {
       index1 = 0;
       index2 = 0;
       sign = "";
+      console.log(number1);
+      console.log(number2);
       document.querySelector(".display").textContent = "0";
     }
     //checks if percent button pushed, it's take number1 to proceed
-    if (symbol.id === "percent" && number1.length !== 0) {
+    if (symbol.id === "percent" && number1.length !== 0 && number2.length === 0) {
       let int1 = parseFloat(number1.join(""));
       let result = Math.round((int1 / 100 + Number.EPSILON) * 10000000000) / 10000000000;
       number1 = Array.from(String(result));
       display(number1);
     }
-   //checks if percent button pushed, it's take number2 to proceed
-   if (symbol.id === "percent" && number2.length !== 0) {
-    number1.length = 0;
-    number2.length = 0;
-    index1 = 0;
-    index2 = 0;
-    sign = "";
-    document.querySelector(".display").textContent = "NotAllowed";
-  }
+    //checks if percent button pushed, it's take number2 to proceed
+    if (symbol.id === "percent" && number2.length !== 0) {
+      let int1 = parseFloat(number2.join(""));
+      let result = Math.round((int1 / 100 + Number.EPSILON) * 10000000000) / 10000000000;
+      number2 = Array.from(String(result));
+      display(number2);
+    }
     //checks if +/- button pushed, proceed with number1
     if (
       symbol.id === "plus-minus" &&
